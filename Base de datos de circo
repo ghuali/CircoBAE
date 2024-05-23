@@ -1,4 +1,4 @@
-rop database if exists circo;
+drop database if exists circo;
 create database circo;
 use circo;
 create table atraccion (
@@ -117,6 +117,7 @@ INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion
 create index nombreArtista on artista(DNI,nombre);
 create index Animalcirco on animal(tipo,nombre,nombre_pista);
 create index Nombreatraccion on atraccion(nombre);
+create index Nombrepista on pista(nombre);
 
 CREATE VIEW vista_atracciones AS
 SELECT nombre AS nombre_atraccion, 

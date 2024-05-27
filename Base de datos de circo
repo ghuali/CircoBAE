@@ -6,6 +6,7 @@ create table atraccion (
 	fecha_inicio DATE not null,
     descripcion varchar(200) not null,
     primary key (nombre)
+	
 )engine = innoDB;
 
 create table artista (
@@ -22,8 +23,12 @@ create table atracciones_artista (
     primary key (fecha_inicio),
     nombre_atraccion varchar(45) not null,
     DNI_artista varchar (45) not null,
-    foreign key (nombre_atraccion) references atraccion(nombre),
+    foreign key (nombre_atraccion) references atraccion(nombre)
+    on update cascade
+	on delete restrict,
 	foreign key (DNI_artista) references artista (DNI)
+    on update cascade
+	on delete restrict
 )engine = innoDB;
 
 create table pista(
@@ -40,16 +45,24 @@ create table animal (
     estatura varchar(45) not null,
     nombre_pista varchar(45) not null,
     nombre_atraccion varchar(45) not null,
-    foreign key (nombre_pista) references pista(nombre),
-    foreign key (nombre_atraccion) references atraccion(nombre),
+    foreign key (nombre_pista) references pista(nombre)
+    on update cascade
+	on delete restrict,
+    foreign key (nombre_atraccion) references atraccion(nombre)
+    on update cascade
+	on delete restrict,
     primary key (nombre)
 )engine = innoDB;
 
 create table animal_artista(
 	nombre_animal varchar (50) not null,
     DNI_artista varchar (45) not null,
-    foreign key (nombre_animal) references animal(nombre),
+    foreign key (nombre_animal) references animal(nombre)
+    on update cascade
+	on delete restrict,
     foreign key (DNI_artista) references artista(DNI)
+    on update cascade
+	on delete restrict
 )engine = innoDB;
 
 insert into atraccion values('caminar en cuerda floja','2024-05-21','El artista se sube a una plataforma alta y camina en una cuerda sujetando una vara larga hasta llegar hasta el final');

@@ -37,6 +37,7 @@ create table pista(
     primary key (nombre)
 )engine = innoDB;
 
+
 create table animal (
 	
     tipo varchar (45) not null,
@@ -45,6 +46,7 @@ create table animal (
     estatura varchar(45) not null,
     nombre_pista varchar(45) not null,
     nombre_atraccion varchar(45) not null,
+    DNI_cuidador varchar(9) not null,
     foreign key (nombre_pista) references pista(nombre)
     on update cascade
 	on delete restrict,
@@ -52,6 +54,20 @@ create table animal (
     on update cascade
 	on delete restrict,
     primary key (nombre)
+)engine = innoDB;
+
+create table cuidador (
+	nombre_cuidador varchar(45) not null,
+    DNI_cuidador varchar(9) not null,
+    nombre_animal varchar(45) not null,
+    nombre_pista varchar(45) not null,
+    foreign key (nombre_pista) references pista(nombre)
+    on update cascade
+    on delete cascade,
+    foreign key (nombre_animal) references animal(nombre)
+    on update cascade
+    on delete cascade,
+    primary key (DNI_cuidador)
 )engine = innoDB;
 
 create table animal_artista(
@@ -118,14 +134,26 @@ INSERT INTO pista (aforo, nombre) VALUES (500,'Pista de la Selva');
 INSERT INTO pista (aforo, nombre) VALUES (250,'Pista del Ártico');
 INSERT INTO pista (aforo, nombre) VALUES (750,'Pista de la Sabana');
 
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('Mono', 'Chita', '20 kg', '50 cm', 'Pista de la Selva', 'domador de monos');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('Mono', 'Rafiki', '18 kg', '45 cm', 'Pista de la Selva', 'domador de monos');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('León', 'Simba', '180 kg', '120 cm', 'Pista de la Sabana', 'domador de leones');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('León', 'Nala', '160 kg', '115 cm', 'Pista de la Sabana', 'domador de leones');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('Foca', 'Nemo', '100 kg', '90 cm', 'Pista del Ártico', 'domador de focas');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('Foca', 'Luna', '110 kg', '95 cm', 'Pista del Ártico', 'domador de focas');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('Elefante', 'Dumbo', '5000 kg', '300 cm', 'Pista de la Selva', 'domador de elefantes');
-INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion) VALUES ('Elefante', 'Babar', '4800 kg', '290 cm', 'Pista de la Selva', 'domador de elefantes');
+
+
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('Mono', 'Chita', '20 kg', '50 cm', 'Pista de la Selva', 'domador de monos','99887766E');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('Mono', 'Rafiki', '18 kg', '45 cm', 'Pista de la Selva', 'domador de monos','99887766E');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('León', 'Simba', '180 kg', '120 cm', 'Pista de la Sabana', 'domador de leones','12345578A');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('León', 'Nala', '160 kg', '115 cm', 'Pista de la Sabana', 'domador de leones','87654321B');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('Foca', 'Nemo', '100 kg', '90 cm', 'Pista del Ártico', 'domador de focas','59887766E');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('Foca', 'Luna', '110 kg', '95 cm', 'Pista del Ártico', 'domador de focas','94887766E');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('Elefante', 'Dumbo', '5000 kg', '300 cm', 'Pista de la Selva', 'domador de elefantes','11223344C');
+INSERT INTO animal (tipo, nombre, peso, estatura, nombre_pista, nombre_atraccion,DNI_cuidador) VALUES ('Elefante', 'Babar', '4800 kg', '290 cm', 'Pista de la Selva', 'domador de elefantes','55667788D');
+
+INSERT INTO cuidador (nombre_cuidador, DNI_cuidador, nombre_animal, nombre_pista) VALUES
+('Juan', '12345578A', 'Simba', 'Pista de la Sabana'),
+('María', '87654321B', 'Nala', 'Pista de la Sabana'),
+('Carlos', '11223344C', 'Dumbo', 'Pista de la Selva'),
+('Ana', '55667788D', 'Babar', 'Pista de la Selva'),
+('Luis', '99882766E', 'Rafiki', 'Pista de la Selva'),
+('Aday', '99887766E', 'Chita', 'Pista de la Selva'),
+('Aimar', '59887766E', 'Nemo', 'Pista del Ártico'),
+('Alvaro', '94887766E', 'Luna', 'Pista del Ártico');
 
 create index nombreArtista on artista(DNI,nombre);
 create index Animalcirco on animal(tipo,nombre,nombre_pista);
